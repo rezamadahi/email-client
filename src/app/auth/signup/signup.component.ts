@@ -48,4 +48,15 @@ export class SignupComponent {
     return this.authForm.get('passwordConfirmation');
   }
 
+  onSubmit() {
+    this.authService.signUp(this.authForm.value).subscribe({
+      next: res => {
+        console.log(res);
+      },
+      error: err => {
+        console.log(err);
+      }
+    });
+  }
+
 }

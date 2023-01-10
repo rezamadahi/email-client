@@ -6,6 +6,10 @@ interface usernameAvailableResponse {
   available: boolean
 }
 
+interface signUpResponse {
+  username: string
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -25,5 +29,9 @@ export class AuthService {
       username: username
     };
     return this.http.post<usernameAvailableResponse>(this.usernameUrl, body);
+  }
+
+  signUp(credentials: any) {
+    return this.http.post<signUpResponse>(this.signUpUrl, credentials);
   }
 }
