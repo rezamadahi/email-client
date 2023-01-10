@@ -40,5 +40,12 @@ export class SignupComponent {
     return this.authForm.get('username');
   }
 
+  get password() {
+    return this.authForm.get('password');
+  }
+
+  get passwordConfirmation() {
+    return this.authForm.get('passwordConfirmation');
+  }
 
 }

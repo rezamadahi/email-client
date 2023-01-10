@@ -9,5 +9,11 @@ import {FormControl} from "@angular/forms";
 export class InputComponent {
 
   @Input() control: any = new FormControl('');
+  @Input() type:string = 'text';
+
+  showErrors() {
+    const { dirty, touched, errors } = this.control;
+    return dirty && touched && errors;
+  }
 
 }
