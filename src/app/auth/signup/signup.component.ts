@@ -51,10 +51,15 @@ export class SignupComponent {
   onSubmit() {
     this.authService.signUp(this.authForm.value).subscribe({
       next: res => {
+        // navigate to some other route
         console.log(res);
       },
       error: err => {
-        console.log(err);
+        if (!err.status) {
+          this.authForm.setErrors({ noConnection: true});
+        } else {
+          this.authForm.setErrors({ unknownError: true });
+        }
       }
     });
   }

@@ -8,6 +8,12 @@
     <p *ngIf="authForm.errors?.['passwordDontMatch']">
       Passwords dont match
     </p>
+    <p *ngIf="authForm.errors?.['noConnection']">
+      Connection failed
+    </p>
+    <p *ngIf="authForm.errors?.['unknownError']">
+      Something went wrong
+    </p>
   </div>
   <div>
     <button type="submit" class="ui submit button primary" [disabled]="authForm.invalid">Submit</button>

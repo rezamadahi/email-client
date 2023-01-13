@@ -1,13 +1,19 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import { environment } from "../../environments/environment";
+import {BehaviorSubject, tap} from "rxjs";
 
 interface usernameAvailableResponse {
   available: boolean
 }
 
-interface signUpResponse {
+interface SignUpResponse {
   username: string
+}
+
+interface  SignedInResponse {
+  authenticated: boolean;
+  username: string;
 }
 
 @Injectable({
@@ -22,6 +28,8 @@ export class AuthService {
   signedInUrl = `${environment.apiUrl}/auth/signedin`;
   signOutUrl = `${environment.apiUrl}/auth/signout`;
 
+  signedIn$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
   constructor(private http: HttpClient ) {}
 
   checkUniqUsername(username: string) {
@@ -32,6 +40,27 @@ export class AuthService {
   }
 
   signUp(credentials: any) {
-    return this.http.post<signUpResponse>(this.signUpUrl, credentials);
+    return this.http.post<SignUpResponse>(this.signUpUrl, credentials).pipe(
+      tap(() => {
+        this.signedIn$.next(true);
+      })
+    );
+  }
+
+  checkAuth() {
+    return this.http.get<SignedInResponse>(this.signedInUrl).pipe(
+      tap(({authenticated}) => {
+        authenticated ? this.signedIn$.next(true) : this.signedIn$.next(false);
+      })
+    );
+  }
+
+  signOut() {
+    return this.http.post(this.signOutUrl, {}).pipe(
+      tap(() => {
+        this.signedIn$.next(false);
+
+      })
+    );
   }
 }
