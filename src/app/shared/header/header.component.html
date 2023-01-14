@@ -3,7 +3,7 @@
   <div class="right menu">
     <ng-container *ngIf="signedIn$ | async; else notLoggedIn" >
       <a class="ui item" routerLink="/inbox" routerLinkActive="active">Inbox</a>
-      <a class="ui item" routerLink="/signout" routerLinkActive="active">Sign Out</a>
+      <a class="ui item" routerLink="/sign-out" routerLinkActive="active">Sign Out</a>
     </ng-container>
     <ng-template #notLoggedIn >
       <a class="ui item" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" >Sign In</a>

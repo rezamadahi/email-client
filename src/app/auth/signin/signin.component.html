@@ -1,1 +1,17 @@
-<p>signin works!</p>
+<h3>Sign In</h3>
+<form class="ui form" [formGroup]="authForm" (ngSubmit)="onSubmit()" >
+  <app-input [control]="username">Username</app-input>
+  <app-input [control]="password" type="password">Password</app-input>
+  <div class="ui red basic label"
+       *ngIf="password?.touched && authForm.errors">
+    <p *ngIf="authForm.errors?.['credentials']">
+      Invalid login information
+    </p>
+    <p *ngIf="authForm.errors?.['unknownError']">
+      Something went wrong
+    </p>
+  </div>
+  <div class="my-2">
+    <button class="ui submit button primary" [disabled]="loading" >Submit</button>
+  </div>
+</form>

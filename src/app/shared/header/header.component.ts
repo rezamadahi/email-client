@@ -8,7 +8,7 @@ import {BehaviorSubject} from "rxjs";
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  signedIn$: BehaviorSubject<boolean>;
+  signedIn$: BehaviorSubject<boolean | null>;
 
   constructor(private authService: AuthService) {
     this.signedIn$ = this.authService.signedIn$;
