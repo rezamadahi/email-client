@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {EmailService} from "../email.service";
-import {EmailModel} from "../../shared/models/email.model";
+import {EmailSummaryModel} from "../../shared/models/email-summary.model";
 
 @Component({
   selector: 'app-email-inbox',
@@ -8,7 +8,7 @@ import {EmailModel} from "../../shared/models/email.model";
   styleUrls: ['./email-inbox.component.css']
 })
 export class EmailInboxComponent implements OnInit {
-  emailList: EmailModel[] = [];
+  emailList: EmailSummaryModel[] = [];
   constructor(private emailService: EmailService) {
   }
 

@@ -1,7 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {EmailService} from "../email.service";
-import {ActivatedRoute, Route} from "@angular/router";
+import {ActivatedRoute} from "@angular/router";
 import {EmailModel} from "../../shared/models/email.model";
+
+// import {EmailService} from "../email.service";
+// import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-email-show',
@@ -9,30 +11,27 @@ import {EmailModel} from "../../shared/models/email.model";
   styleUrls: ['./email-show.component.css']
 })
 export class EmailShowComponent implements OnInit {
+  email: EmailModel;
 
-  id: any;
-  email: any;
-
-  constructor(private emailService: EmailService, private activatedRoute: ActivatedRoute) {
-    this.activatedRoute.paramMap.subscribe(params => {
-      this.id = params.get('id');
+  constructor(private activatedRoute: ActivatedRoute) {
+    // this.activatedRoute.paramMap.subscribe(params => {
+    //   this.id = params.get('id');
+    // });
+    // this.id = this.activatedRoute.snapshot.params['id'];
+    this.email = this.activatedRoute.snapshot.data['email'];
+    this.activatedRoute.data.subscribe(({ email }) => {
+      this.email = email;
     })
   }
 
   ngOnInit(): void {
-    this.getEmailDetails(this.id);
-  }
-
-  getEmailDetails(id: string) {
-    this.emailService.getEmailDetails(id).subscribe({
-      next: (response) => {
-        console.log(response);
-        this.email = response;
-      },
-      error: (err) => {
-        console.log(err);
-      }
-    });
+    // this.activatedRoute.params.pipe(
+    //   switchMap(({ id }) => {
+    //     return this.emailService.getEmail(id);
+    //   })
+    // ).subscribe(email => {
+    //   this.email = email;
+    // });
   }
 
 }

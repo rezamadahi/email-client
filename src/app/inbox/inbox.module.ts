@@ -8,6 +8,7 @@ import { EmailInboxComponent } from './email-inbox/email-inbox.component';
 import { EmailShowComponent } from './email-show/email-show.component';
 import {HomeComponent} from "./home/home.component";
 import { PlaceholderComponent } from './placeholder/placeholder.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { PlaceholderComponent } from './placeholder/placeholder.component';
     EmailInboxComponent,
     EmailShowComponent,
     HomeComponent,
-    PlaceholderComponent
+    PlaceholderComponent,
+    NotFoundComponent
   ],
   imports: [
     CommonModule,
