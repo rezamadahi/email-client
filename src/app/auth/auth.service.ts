@@ -29,6 +29,7 @@ export class AuthService {
   signOutUrl = `${environment.apiUrl}/auth/signout`;
 
   signedIn$: BehaviorSubject<boolean | null> = new BehaviorSubject<boolean | null>(null);
+  username = '';
 
   constructor(private http: HttpClient ) {}
 
@@ -41,16 +42,18 @@ export class AuthService {
 
   signUp(credentials: any) {
     return this.http.post<SignUpResponse>(this.signUpUrl, credentials).pipe(
-      tap(() => {
+      tap(({username}) => {
         this.signedIn$.next(true);
+        this.username = username;
       })
     );
   }
 
   checkAuth() {
     return this.http.get<SignedInResponse>(this.signedInUrl).pipe(
-      tap(({authenticated}) => {
+      tap(({authenticated, username}) => {
         authenticated ? this.signedIn$.next(true) : this.signedIn$.next(false);
+        this.username = username;
       })
     );
   }
@@ -66,8 +69,9 @@ export class AuthService {
 
   signIn(credentials: any) {
     return this.http.post<SignUpResponse>(this.signInUrl, credentials).pipe(
-      tap(() => {
+      tap(({username}) => {
         this.signedIn$.next(true);
+        this.username = username;
       })
     );
   }
